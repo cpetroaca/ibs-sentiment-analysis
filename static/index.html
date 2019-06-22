@@ -1,0 +1,54 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IBS term sentiment analysis</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".widget input[type=submit], .widget a, .widget button" ).button();
+    $( "button, input, a" ).click( function( event ) {
+      event.preventDefault();
+    } );
+  } );
+  
+  $(function() {
+    $("#submitButton").click(function() {
+    	var queryVal = $("#query").val();
+    	$('#content').html("<img src='ajax-loader.gif'>");
+    	$.ajax({
+   	    type: "GET",
+   	    url: "/analyze_sentiment",
+   	    data: "query=" + queryVal,
+   	    success: function(response) {
+   	      var jsonResponse = JSON.parse(response);
+   	      var total = jsonResponse.positive + jsonResponse.neutral + jsonResponse.negative;
+   	      $('#content').html("<div id='positive'><div class='progress-label'>Positive</div></div><br>"
+   	    		  + "<div id='neutral'><div class='progress-label'>Neutral</div></div><br>"
+   	    		  + "<div id='negative'><div class='progress-label'>Negative</div></div>");
+   	   	  $( "#positive" ).progressbar({
+   	      	value: (jsonResponse.positive / total) * 100
+   	      });
+   	   	  $( "#neutral" ).progressbar({
+  	      	value: (jsonResponse.neutral / total) * 100
+  	      });
+   	   	  $( "#negative" ).progressbar({
+ 	      	value: (jsonResponse.negative / total) * 100
+ 	      });
+   	    }
+   	  });
+   	  return false;
+    });
+  });
+  </script>
+</head>
+
+<div id="content" class="widget">
+  <div id="explanation">Search through http://reddit.com/r/ibs for reactions to your term</div><br>
+  <input type="text" id="query"><br><br>
+  <input id="submitButton" type="submit" value="Go">
+</div>
+</html>

@@ -1,0 +1,55 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+	font-size: 1em;
+}
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+
+.ui-progressbar {
+  position: relative;
+}
+.progress-label {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+#content {
+  width:50%; margin:0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#query {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('searchicon.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+}
+
+#positive > .ui-progressbar-value {
+   background:#90EE90;
+}
+
+#negative > .ui-progressbar-value {
+   background:#F08080;
+}
+
+#explanation {
+	font-family: Helvetica;
+	color: grey;
+}
