@@ -3,10 +3,15 @@ import json
 import os
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from flask import Flask
-from flask import request, url_for
+from flask import request, send_from_directory
 
+static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 app = Flask(__name__, static_url_path='', static_folder='static')
 
+@app.route('/')
+def get_main():
+    return send_from_directory(static_file_dir, 'index.html')
+    
 @app.route('/analyze_sentiment')
 def analyze_sentiment():
     query = request.args.get('query')

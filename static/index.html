@@ -28,7 +28,8 @@
    	      var total = jsonResponse.positive + jsonResponse.neutral + jsonResponse.negative;
    	      $('#content').html("<div id='positive'><div class='progress-label'>Positive</div></div><br>"
    	    		  + "<div id='neutral'><div class='progress-label'>Neutral</div></div><br>"
-   	    		  + "<div id='negative'><div class='progress-label'>Negative</div></div>");
+   	    		  + "<div id='negative'><div class='progress-label'>Negative</div></div><br>"
+   	    		  + "<a class='ui-button ui-widget ui-corner-all' href='/'>Back to search</a>");
    	   	  $( "#positive" ).progressbar({
    	      	value: (jsonResponse.positive / total) * 100
    	      });
@@ -49,6 +50,6 @@
 <div id="content" class="widget">
   <div id="explanation">Search through http://reddit.com/r/ibs for reactions to your term</div><br>
   <input type="text" id="query"><br><br>
-  <input id="submitButton" type="submit" value="Go">
+  <input id="submitButton" class="ui-button ui-widget ui-corner-all" type="submit" value="Go">
 </div>
 </html>
