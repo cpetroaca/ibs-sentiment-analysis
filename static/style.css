@@ -21,11 +21,15 @@ table {
   text-shadow: 1px 1px 0 #fff;
 }
 
+.details {
+	border: 1px solid #C0C0C0;
+	border-radius: 5px;
+	display: none;
+}
+
 #content {
   width:50%; margin:0 auto;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 #query {

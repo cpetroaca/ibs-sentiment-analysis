@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="utils.js"></script>
   <script>
   $( function() {
     $( ".widget input[type=submit], .widget a, .widget button" ).button();
@@ -25,21 +26,45 @@
    	    data: "query=" + queryVal,
    	    success: function(response) {
    	      var jsonResponse = JSON.parse(response);
-   	      var total = jsonResponse.positive + jsonResponse.neutral + jsonResponse.negative;
+   	      var total = jsonResponse.positive._count + jsonResponse.neutral._count + jsonResponse.negative._count;
    	      $('#content').html("<div id='positive'><div class='progress-label'>Positive</div></div><br>"
+   	    		  + "<div id='positive_details' class='details'/><br>"
    	    		  + "<div id='neutral'><div class='progress-label'>Neutral</div></div><br>"
+   	    		  + "<div id='neutral_details' class='details'/><br>"
    	    		  + "<div id='negative'><div class='progress-label'>Negative</div></div><br>"
-   	    		  + "<a class='ui-button ui-widget ui-corner-all' href='/'>Back to search</a>");
+   	    		  + "<div id='negative_details' class='details'/><br>"
+   	    		  + "<a class='ui-button ui-widget ui-corner-all' href='/'>Back to search</a> <a id='detailsButton' class='ui-button ui-widget ui-corner-all'>Show Details</a>");
    	   	  $( "#positive" ).progressbar({
-   	      	value: (jsonResponse.positive / total) * 100
+   	      	value: (jsonResponse.positive._count / total) * 100
    	      });
    	   	  $( "#neutral" ).progressbar({
-  	      	value: (jsonResponse.neutral / total) * 100
+  	      	value: (jsonResponse.neutral._count / total) * 100
   	      });
    	   	  $( "#negative" ).progressbar({
- 	      	value: (jsonResponse.negative / total) * 100
+ 	      	value: (jsonResponse.negative._count / total) * 100
  	      });
-   	    }
+   	   	  $( "#detailsButton" ).click(function() {
+   	   		var buttonText = $("#detailsButton").text();
+   	   		if (buttonText == "Show Details") {
+	   		  	$("#positive_details").html(buildSentimentDetails(jsonResponse.positive._posts_list));
+	   		  	$("#positive_details").fadeIn("slow");
+	   		    $("#neutral_details").html(buildSentimentDetails(jsonResponse.neutral._posts_list));
+			  	$("#neutral_details").fadeIn("slow");
+			  	$("#negative_details").html(buildSentimentDetails(jsonResponse.negative._posts_list));
+	   		  	$("#negative_details").fadeIn("slow");
+	   		 	$("#detailsButton").text("Hide Details");
+   	   		} else {
+   	   			$("#positive_details").fadeOut("slow");
+   	   			$("#neutral_details").fadeOut("slow");
+   	   			$("#negative_details").fadeOut("slow");
+   	   			$("#detailsButton").text("Show Details");
+   	   		} 	
+   		  });
+   	    },
+   	 	error: function(jqXHR, textStatus, errorThrown) {
+   	 		$('#content').html("Error getting results: " + jqXHR.responseText + "<br><br>"
+   	 				+ "<a class='ui-button ui-widget ui-corner-all' href='/'>Back to search</a>");
+   	 	}
    	  });
    	  return false;
     });
