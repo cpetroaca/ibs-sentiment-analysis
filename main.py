@@ -6,6 +6,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from flask import Flask
 from flask import request, send_from_directory
 from nltk.tokenize import sent_tokenize
+from waitress import serve
 
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 app = Flask(__name__, static_url_path='', static_folder='static')
@@ -49,4 +50,5 @@ def analyze_sentiment():
     return '{ "positive":' + json.dumps(positive.__dict__) + ', "negative":' + json.dumps(negative.__dict__) + ', "neutral":' + json.dumps(neutral.__dict__) + '}'
 
 if __name__ == '__main__':
-    app.run()
+    #app.run()
+    serve(app, host='0.0.0.0', port=5000)
