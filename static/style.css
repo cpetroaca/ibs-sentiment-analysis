@@ -25,6 +25,28 @@ table {
 	border: 1px solid #C0C0C0;
 	border-radius: 5px;
 	display: none;
+	padding: 5px;
+	margin-top: 10px;
+}
+
+a.detailsLink:link {
+	color: #0000CD;
+	text-decoration: none;
+}
+
+a.detailsLink:hover {
+	color: #0000CD;
+	text-decoration: underline;
+}
+
+a.detailsLink:active {
+	color: #0000CD;
+	text-decoration: underline;
+}
+
+a.detailsLink:visited {
+	color: #0000CD;
+	text-decoration: none;
 }
 
 #content {
@@ -53,7 +75,7 @@ table {
    background:#F08080;
 }
 
-#explanation {
+.text {
 	font-family: Helvetica;
 	color: grey;
 }

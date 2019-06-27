@@ -34,17 +34,10 @@ def analyze_sentiment():
         for i in range(len(sentences)):
             sentence = sentences[i]
             if query in sentence:
-                paragraph = ""
-                if i != 0:
-                    paragraph += sentences[i-1]
-                paragraph += sentence
-                if len(sentences) > i+1:
-                    paragraph +=sentences[i+1]
-                
-                score = sid.polarity_scores(paragraph)['compound']
+                score = sid.polarity_scores(sentence)['compound']
                 post_result = dict()
                 post_result['score'] = score
-                post_result['text'] = paragraph
+                post_result['text'] = sentence
                 post_result['link'] = post['full_link']
                 
                 if score < -0.05:

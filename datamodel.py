@@ -15,10 +15,10 @@ class Sentiment:
             if len(self._posts_list) == 10:
                 self._posts_list.sort(key=self.sortScore, reverse=True)
         
-        return
+            return
         
         score = post['score']
-        if math.fabs(score) > math.fabs(self._posts_list[9]['score']):
+        if abs(score) > abs(self._posts_list[9]['score']):
             self._posts_list[9] = post
     
     def sortScore(self, element):

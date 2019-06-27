@@ -19,7 +19,7 @@
   $(function() {
     $("#submitButton").click(function() {
     	var queryVal = $("#query").val();
-    	$('#content').html("<img src='ajax-loader.gif'>");
+    	$('#content').html("<img src='ajax-loader.gif' align='left'><div class='text'>This may take a few seconds...</div>");
     	$.ajax({
    	    type: "GET",
    	    url: "/analyze_sentiment",
@@ -27,11 +27,11 @@
    	    success: function(response) {
    	      var jsonResponse = JSON.parse(response);
    	      var total = jsonResponse.positive._count + jsonResponse.neutral._count + jsonResponse.negative._count;
-   	      $('#content').html("<div id='positive'><div class='progress-label'>Positive</div></div><br>"
+   	      $('#content').html("<div id='positive'><div class='progress-label'>Positive</div></div>"
    	    		  + "<div id='positive_details' class='details'/><br>"
-   	    		  + "<div id='neutral'><div class='progress-label'>Neutral</div></div><br>"
+   	    		  + "<div id='neutral'><div class='progress-label'>Neutral</div></div>"
    	    		  + "<div id='neutral_details' class='details'/><br>"
-   	    		  + "<div id='negative'><div class='progress-label'>Negative</div></div><br>"
+   	    		  + "<div id='negative'><div class='progress-label'>Negative</div></div>"
    	    		  + "<div id='negative_details' class='details'/><br>"
    	    		  + "<a class='ui-button ui-widget ui-corner-all' href='/'>Back to search</a> <a id='detailsButton' class='ui-button ui-widget ui-corner-all'>Show Details</a>");
    	   	  $( "#positive" ).progressbar({
@@ -73,7 +73,7 @@
 </head>
 
 <div id="content" class="widget">
-  <div id="explanation">Search through http://reddit.com/r/ibs for reactions to your term</div><br>
+  <div class="text">Search through http://reddit.com/r/ibs for reactions to your term</div><br>
   <input type="text" id="query"><br><br>
   <input id="submitButton" class="ui-button ui-widget ui-corner-all" type="submit" value="Go">
 </div>
