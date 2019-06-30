@@ -1,6 +1,5 @@
-class Sentiment:
-    def __init__(self, type):
-        self._type = type
+class SentimentResult:
+    def __init__(self):
         self._count = 0
         self._posts_list = list()
     
@@ -9,17 +8,13 @@ class Sentiment:
     
     def add_post(self, post):
         self.inc()
-        if len(self._posts_list) <= 10:
-            self._posts_list.append(post)
-            
-            if len(self._posts_list) == 10:
-                self._posts_list.sort(key=self.sortScore, reverse=True)
-        
-            return
-        
-        score = post['score']
-        if abs(score) > abs(self._posts_list[9]['score']):
-            self._posts_list[9] = post
+        self._posts_list.append(post)
     
+    def trim_list(self):
+        self._posts_list.sort(key=self.sortScore, reverse=True)
+        list_len = len(self._posts_list)
+        delete_posts_cnt = list_len - 10
+        self._posts_list = self._posts_list[:list_len - delete_posts_cnt]
+        
     def sortScore(self, element):
-        return element['score']
+        return abs(element['score'])
