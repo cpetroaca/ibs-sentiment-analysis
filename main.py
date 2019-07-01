@@ -66,5 +66,4 @@ def read_config(config_file):
 
 if __name__ == '__main__':
     read_config("config.yaml")
-    print(config)
     serve(app, host='0.0.0.0', port=5000)
